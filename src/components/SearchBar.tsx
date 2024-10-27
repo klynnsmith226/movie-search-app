@@ -57,7 +57,7 @@ interface ISearchBarProps{
 }
 
 function SearchBar({onSearch} : ISearchBarProps) {
-  const [searchPhrase, setSearchPhrase] = useState('');
+  const [searchPhrase, setSearchPhrase] = useState<string>('');
 
   const handleSearch = () => {
     if (searchPhrase.trim() === '') return;
