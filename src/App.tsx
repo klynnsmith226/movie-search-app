@@ -1,33 +1,38 @@
 import React from 'react';
 import SearchBar from './components/SearchBar';
+import MovieList from './components/MovieList';
 import useMovieQuery from './hooks/useMovieQuery';
+import styled from 'styled-components';
+
+const AppContainer = styled.div`
+  flex: 1;
+  min-height: 100vw;
+  background-color:#000000;
+  padding: 2vw 2vh 2vw 2vh;
+`; 
 
 function App() {
-  const { movies, loading, error, searchMovies, loadMoreMovies, hasMoreMovies, isFetchingMore } = useMovieQuery();
-  
+  const { movies, loading, error, searchMovies, loadMoreMovies, isFetchingMore, hasMoreMovies } = useMovieQuery();
+
   return (
-    <div className="App">
+    <AppContainer>
       <header className="App-header">
       </header>
-      
-      <SearchBar onSearch={(searchPhrase: string) => searchMovies(searchPhrase)} />
+      <div className="App">
+      <SearchBar onSearch={searchMovies} />
 
       {loading && <p>Loading...</p>}
-
+      
       {error && <p style={{ color: 'red' }}>{error}</p>}
-
-      <div>
-        {movies.map((movie) => 
-          <span>{movie.title}</span>
-        )}
-        
-        {hasMoreMovies && !loading && (
-        <button onClick={loadMoreMovies} disabled={isFetchingMore}>
-          Load More
-        </button>
-      )}
+      
+      <MovieList
+        movies={movies}
+        loadMoreMovies={loadMoreMovies}
+        hasMoreMovies={hasMoreMovies}
+        isFetchingMore={isFetchingMore}
+      />
       </div>
-    </div>
+    </AppContainer>
   );
 }
 
