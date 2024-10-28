@@ -1,7 +1,5 @@
 import { useState } from 'react';
-
-const API_KEY = 'ec982f41688f44c90fbd3928d585f221';  // Replace with your TMDB API key
-const BASE_URL = 'https://api.themoviedb.org/3';
+import {BASE_URL, API_KEY} from '../utils/constants';
 
 interface Movie {
   id: number;
@@ -28,7 +26,7 @@ const useMovieQuery = (): UseMovieQueryReturn => {
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState<string>('');
   const [page, setPage] = useState<number>(1);
-  const [totalPages, setTotalPages] = useState<number>(0);  // New state to track total pages
+  const [totalPages, setTotalPages] = useState<number>(0);
 
   const searchMovies = async (newQuery: string) => {
     setLoading(true);
