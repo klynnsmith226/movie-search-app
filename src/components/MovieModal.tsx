@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import useMovieDetails from '../hooks/useMovieDetails';
 import { formatCurrency } from '../utils/formatCurrency';
 import CastList from './CastList'
+import MovieRatings from './MovieRatings'
 
 interface MovieModalProps {
     movieId: number | null;
@@ -106,6 +107,8 @@ const MovieModal: React.FC<MovieModalProps> = ({ movieId, onClose }) => {
                             </div>
 
                         </DetailsContainer>
+                        {(movie.popularity | movie.vote_average) && <MovieRatings popularity={movie.popularity} rating={movie.vote_average}/>}
+
                         {trailer && (
                             <TrailerEmbed
                                 src={`https://www.youtube.com/embed/${trailer.key}`}
