@@ -58,11 +58,11 @@ const useMovieDetails = (movieId: number | null) => {
         const movieData = await movieResponse.json();
         setMovie(movieData);
 
-        // Fetch cast information
+        // Fetch top 5 cast information
         const castResponse = await fetch(`${BASE_URL}/movie/${movieId}/credits?api_key=${API_KEY}`);
         if (!castResponse.ok) throw new Error('Failed to fetch cast details');
         const castList = await castResponse.json();
-        setCast(castList.cast.slice(0, 4));
+        setCast(castList.cast.slice(0, 5));
 
         // Fetch videos and find the first trailer
         const trailerResponse = await fetch(`${BASE_URL}/movie/${movieId}/videos?api_key=${API_KEY}`);

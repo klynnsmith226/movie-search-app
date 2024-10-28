@@ -15,6 +15,7 @@ interface MovieListProps {
   loadMoreMovies: () => void;
   hasMoreMovies: boolean;
   isFetchingMore: boolean;
+  onMovieClick: (id: number) => void;
 }
 
 const MovieListContainer = styled.div`
@@ -23,7 +24,7 @@ const MovieListContainer = styled.div`
 
 `;
 
-function MovieList ({ movies, loadMoreMovies, hasMoreMovies, isFetchingMore }: MovieListProps) {
+function MovieList ({ movies, loadMoreMovies, hasMoreMovies, isFetchingMore, onMovieClick }: MovieListProps) {
   return (
     <MovieListContainer>
       {movies.map((movie) => (
@@ -33,6 +34,8 @@ function MovieList ({ movies, loadMoreMovies, hasMoreMovies, isFetchingMore }: M
           releaseDate={movie.release_date}
           description={movie.overview}
           posterPath={movie.poster_path}
+          id={movie.id}
+          onClick={onMovieClick}
         />
       ))}
     

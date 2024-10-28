@@ -7,6 +7,8 @@ interface MovieCardProps {
   releaseDate: string;
   description: string;
   posterPath: string;
+  id: number;
+  onClick: (id: number) => void;
 }
 
 const CardContainer = styled.div`
@@ -50,9 +52,9 @@ const Description = styled.p`
   line-height: 1.4;
 `;
 
-function MovieCard ({ title, releaseDate, description, posterPath }: MovieCardProps ) {
+function MovieCard ({ title, releaseDate, description, posterPath, id, onClick }: MovieCardProps ) {
   return (
-    <CardContainer>
+    <CardContainer onClick={() => onClick(id)}>
       <Poster src={`https://image.tmdb.org/t/p/w200${posterPath}`} alt={`${title} poster`} />
       <MovieInfo>
         <MovieTitle>{title}</MovieTitle>
