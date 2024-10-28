@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import useMovieDetails from '../hooks/useMovieDetails';
 import { formatCurrency } from '../utils/formatCurrency';
+import CastList from './CastList'
 
 interface MovieModalProps {
     movieId: number | null;
@@ -120,7 +121,9 @@ const MovieModal: React.FC<MovieModalProps> = ({ movieId, onClose }) => {
                         <Text>{formatCurrency(movie.budget)}</Text>
                         <Subtitle>Revenue</Subtitle>
                         <Text>{formatCurrency(movie.revenue)}</Text>
-                        <Subtitle>Top Cast</Subtitle>
+                        
+                        {cast && <><Subtitle>Top Cast</Subtitle><CastList cast={cast}/></>}
+
                     </>
                 )}
             </ModalContainer>
