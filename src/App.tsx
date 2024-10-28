@@ -4,6 +4,7 @@ import MovieList from './components/MovieList';
 import useMovieQuery from './hooks/useMovieQuery';
 import styled from 'styled-components';
 import MovieModal from './components/MovieModal';
+import LoadingIndicator from './components/LoadingIndicator';
 
 const AppContainer = styled.div`
   flex: 1;
@@ -26,7 +27,7 @@ function App() {
       <div className="App">
         <SearchBar onSearch={searchMovies} />
 
-        {loading && <p>Loading...</p>}
+        {loading && <LoadingIndicator color="#6bbda2" size={40}/>}
 
         {error && <p style={{ color: 'red' }}>{error}</p>}
 
