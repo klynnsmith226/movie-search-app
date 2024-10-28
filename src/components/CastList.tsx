@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import ImageWithEmptyPlaceholder from './ImageWithEmptyPlaceholder';
 
 interface CastMember {
     id: number;
@@ -10,7 +11,7 @@ interface CastMember {
 
 interface CastListProps {
     cast: CastMember[];
-  }
+}
 
 const Text = styled.p`
   font-size: 0.9rem;
@@ -30,25 +31,20 @@ const CastMember = styled.div`
   width: 100px;
 `;
 
-const CastImage = styled.img`
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  margin-bottom: 0.5rem;
-  object-fit: cover;
-`;
-
-function CastList({cast}: CastListProps) {
+function CastList({ cast }: CastListProps) {
     return (
         <CastContainer>
             {cast.map((member) => (
                 <CastMember key={member.id}>
-                    <CastImage
-                        src={member.profile_path ? `https://image.tmdb.org/t/p/w200${member.profile_path}` : 'https://via.placeholder.com/100x150'}
+                    <ImageWithEmptyPlaceholder
+                        src={member.profile_path ? `https://image.tmdb.org/t/p/w200${member.profile_path}` : undefined}
                         alt={member.name}
+                        width={100}
+                        height={100}
+                        round={true}
+                        fallbackText="Movie Poster Not Available"
                     />
-                    <Text>{member.name}</Text>
-                    <Text>as {member.character}</Text>
+                    <Text>{member.name} as {member.character}</Text>
                 </CastMember>
             ))}
         </CastContainer>
