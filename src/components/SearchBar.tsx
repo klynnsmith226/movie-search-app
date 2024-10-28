@@ -11,6 +11,7 @@ const SearchBarContainer = styled.div`
   border-radius: 15px;
   width: 100%;
   max-width: 600px;
+  overflow:hidden;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
 `;
 

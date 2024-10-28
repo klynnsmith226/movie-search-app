@@ -6,19 +6,46 @@ import styled from 'styled-components';
 import MovieModal from './components/MovieModal';
 import LoadingIndicator from './components/LoadingIndicator';
 import { SquareButton } from './components/SquareButton';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFilm } from '@fortawesome/free-solid-svg-icons';
+import ErrorMessage from './components/ErrorMessage';
 
 const AppContainer = styled.div`
   flex: 1;
   min-height: 100vw;
   background-color:#000000;
-  padding: 2vw 2vh 2vw 2vh;
+  padding: 1vh 2vw;
 `;
+
+const Body = styled.div`
+  display:flex;
+  flex-direction: column;
+  justify-content:flex-start;
+  min-height: 100vh;
+`
+
+const HeaderText = styled.p`
+  color: #6bbda2;
+  font-weight: bold;
+`
+
+const Header = styled.header`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  border-bottom: 1px #666 solid;
+}
+`
 
 const SearchBarContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  padding-top:2vh;
   gap: 1rem;
 `;
 
@@ -31,9 +58,11 @@ function App() {
 
   return (
     <AppContainer>
-      <header className="App-header">
-      </header>
-      <div className="App">
+      <Header>
+        <FontAwesomeIcon size="lg" icon={faFilm} color="#6bbda2" />
+        <HeaderText>FilmSearch</HeaderText>
+      </Header>
+      <Body>
         <SearchBarContainer>
           <SearchBar onSearch={searchMovies} />
           <SquareButton disabled={movies.length === 0} onClick={clearMovies}>
@@ -43,7 +72,7 @@ function App() {
 
         {loading && <LoadingIndicator color="#6bbda2" size={40} />}
 
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {error && <ErrorMessage message={error} />}
 
         <MovieList
           movies={movies}
@@ -52,7 +81,7 @@ function App() {
           isFetchingMore={isFetchingMore}
           onMovieClick={openModal}
         />
-      </div>
+      </Body>
       {selectedMovieId && <MovieModal movieId={selectedMovieId} onClose={closeModal} />}
 
     </AppContainer>

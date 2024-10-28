@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import {BASE_URL, API_KEY} from '../utils/constants';
+import {BASE_URL} from '../utils/constants';
 
 interface Genre {
   id: number;
@@ -43,6 +43,7 @@ const useMovieDetails = (movieId: number | null) => {
   const [trailer, setTrailer] = useState<Trailer | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const API_KEY = process.env.REACT_APP_API_KEY;
 
   useEffect(() => {
     if (!movieId) return;
@@ -58,11 +59,11 @@ const useMovieDetails = (movieId: number | null) => {
         const movieData = await movieResponse.json();
         setMovie(movieData);
 
-        // Fetch top 5 cast information
+        // Fetch top 10 cast information
         const castResponse = await fetch(`${BASE_URL}/movie/${movieId}/credits?api_key=${API_KEY}`);
         if (!castResponse.ok) throw new Error('Failed to fetch cast details');
         const castList = await castResponse.json();
-        setCast(castList.cast.slice(0, 5));
+        setCast(castList.cast.slice(0, 10));
 
         // Fetch videos and find the first trailer
         const trailerResponse = await fetch(`${BASE_URL}/movie/${movieId}/videos?api_key=${API_KEY}`);

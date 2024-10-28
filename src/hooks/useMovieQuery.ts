@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {BASE_URL, API_KEY} from '../utils/constants';
+import {BASE_URL} from '../utils/constants';
 
 interface Movie {
   id: number;
@@ -28,6 +28,7 @@ const useMovieQuery = (): UseMovieQueryReturn => {
   const [query, setQuery] = useState<string>('');
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(0);
+  const API_KEY = process.env.REACT_APP_API_KEY;
 
 const clearMovies = () => {
     setMovies([]);
