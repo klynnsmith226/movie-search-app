@@ -25,6 +25,7 @@ const MovieListContainer = styled.div`
   flex-direction: column;
   padding-left: 5vw;
   padding-right: 5vw;
+  padding-top: 2vh;
   justify-content:center;
 `;
 
