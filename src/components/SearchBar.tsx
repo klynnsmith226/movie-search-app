@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const SearchBarContainer = styled.div`
   display: flex;
   align-items: center;
   padding: 0.5rem;
   background: linear-gradient(135deg, #333, #444);
-  border-radius: 30px;
+  border-radius: 15px;
   width: 100%;
   max-width: 600px;
-  margin: 0 auto;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
 `;
 
@@ -22,23 +23,21 @@ const SearchInput = styled.input`
   color: #ffffff;
   font-size: 1rem;
   outline: none;
-  caret-color: #007aff;
-
   &::placeholder {
     color: #cccccc;
   }
 `;
 
-const SearchButton = styled.button`
-   padding: 0.5rem 1rem;
-  border: none;
-  background-color: #6bbda2;
-  color: #fff;
-  font-size: 1rem;
-  border-radius: 10%;
-  cursor: pointer;
-
-  &:hover {
+const IconContainer = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border:none;
+  background-color: #6bbda2;  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  margin-right: 0.5rem;
+    &:hover {
     background-color: #488a74;
   }
 
@@ -47,36 +46,32 @@ const SearchButton = styled.button`
   }
 `;
 
-const SearchIcon = styled.span`
-  color: #ffffff;
-  font-size: 1.25rem;
-`;
-
-interface ISearchBarProps{
+interface ISearchBarProps {
     onSearch: (searchPhrase: string) => void;
 }
 
-function SearchBar({onSearch} : ISearchBarProps) {
-  const [searchPhrase, setSearchPhrase] = useState<string>('');
+function SearchBar({ onSearch }: ISearchBarProps) {
+    const [searchPhrase, setSearchPhrase] = useState<string>('');
 
-  const handleSearch = () => {
-    if (searchPhrase.trim() === '') return;
-    onSearch(searchPhrase);
-  };
+    const handleSearch = () => {
+        if (searchPhrase.trim() === '') return;
+        onSearch(searchPhrase);
+    };
 
-  return (
-    <SearchBarContainer>
-      <SearchInput
-        type="text"
-        placeholder="Search for a movie..."
-        value={searchPhrase}
-        onChange={(e) => setSearchPhrase(e.target.value)}
-        onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-      />
-      {/* replace with search icon later*/}
-      <SearchButton onClick={handleSearch}><SearchIcon>⌘</SearchIcon></SearchButton>
-    </SearchBarContainer>
-  );
+    return (
+        <SearchBarContainer>
+            <SearchInput
+                type="text"
+                placeholder="Search by movie title..."
+                value={searchPhrase}
+                onChange={(e) => setSearchPhrase(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+            />
+            <IconContainer onClick={handleSearch}>
+                <FontAwesomeIcon size="lg" icon={faSearch} color="#ffffff" />
+            </IconContainer>
+        </SearchBarContainer>
+    );
 };
 
 export default SearchBar;

@@ -13,6 +13,7 @@ interface UseMovieQueryReturn {
   movies: Movie[];
   loading: boolean;
   error: string | null;
+  clearMovies: () => void;
   searchMovies: (query: string) => Promise<void>;
   loadMoreMovies: () => Promise<void>;
   isFetchingMore: boolean;
@@ -27,6 +28,13 @@ const useMovieQuery = (): UseMovieQueryReturn => {
   const [query, setQuery] = useState<string>('');
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(0);
+
+const clearMovies = () => {
+    setMovies([]);
+    setQuery('');
+    setTotalPages(0);
+    setPage(1);
+  };
 
   const searchMovies = async (newQuery: string) => {
     setLoading(true);
@@ -80,7 +88,7 @@ const useMovieQuery = (): UseMovieQueryReturn => {
   //used to conditionally hide "Load More" button to hide from user when useless
   const hasMoreMovies = page < totalPages;
 
-  return { movies, loading, error, searchMovies, loadMoreMovies, isFetchingMore, hasMoreMovies };
+  return { movies, loading, error, searchMovies, clearMovies, loadMoreMovies, isFetchingMore, hasMoreMovies };
 };
 
 export default useMovieQuery;

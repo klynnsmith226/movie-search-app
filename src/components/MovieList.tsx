@@ -2,6 +2,7 @@ import React from 'react';
 import MovieCard from './MovieCard';
 import styled from 'styled-components';
 import LoadingIndicator from './LoadingIndicator';
+import {SquareButton} from './SquareButton';
 
 interface Movie {
     id: number;
@@ -20,10 +21,18 @@ interface MovieListProps {
 }
 
 const MovieListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   padding-left: 5vw;
   padding-right: 5vw;
-
+  justify-content:center;
 `;
+
+const LoadMoreContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 
 function MovieList({ movies, loadMoreMovies, hasMoreMovies, isFetchingMore, onMovieClick }: MovieListProps) {
     return (
@@ -39,12 +48,14 @@ function MovieList({ movies, loadMoreMovies, hasMoreMovies, isFetchingMore, onMo
                     onClick={onMovieClick}
                 />
             ))}
-            {isFetchingMore ? <LoadingIndicator size={20}/> :
+            <LoadMoreContainer>
+            {isFetchingMore ? <LoadingIndicator color="#6bbda2" size={20}/> :
                 hasMoreMovies && (
-                    <button onClick={loadMoreMovies} disabled={isFetchingMore}>
-                        Load More
-                    </button>
+                    <SquareButton onClick={loadMoreMovies} disabled={isFetchingMore}> Load More </SquareButton>
+                   
                 )}
+                </LoadMoreContainer>
+               
         </MovieListContainer>
     );
 };
