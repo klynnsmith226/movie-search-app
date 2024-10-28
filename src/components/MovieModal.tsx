@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import useMovieDetails from '../hooks/useMovieDetails';
-import { formatCurrency } from '../utils/formatCurrency';
 import CastList from './CastList'
 import MovieRatings from './MovieRatings'
 import LoadingIndicator from './LoadingIndicator';
-import ImageWithEmptyPlaceholder from './ImageWithEmptyPlaceholder'
+import ImageWithEmptyPlaceholder from './ImageWithEmptyPlaceholder';
+import MovieDetailsTable from './MovieDetailsTable';
 
 interface MovieModalProps {
     movieId: number | null;
@@ -14,9 +14,11 @@ interface MovieModalProps {
 
 const TrailerEmbed = styled.iframe`
   width: 100%;
-  height: 315px;
+  height: 400px;
   border: none;
   border-radius: 8px;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
 `;
 
 const ModalBackground = styled.div`
@@ -25,7 +27,7 @@ const ModalBackground = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,11 +38,17 @@ const ModalContainer = styled.div`
   background: #222;
   padding: 2rem;
   width: 90%;
-  max-width: 700px;
+  max-width: 1200px;
   border-radius: 8px;
   color: #ffffff;
   overflow-y: auto;
   max-height: 90vh;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  scrollbar-width: none;
+
 `;
 
 const CloseButton = styled.button`
@@ -49,41 +57,39 @@ const CloseButton = styled.button`
   right: 15px;
   background: none;
   color: #fff;
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   border: none;
   cursor: pointer;
-`;
-
-const Poster = styled.img`
-  width: 100%;
-  max-width: 200px;
-  border-radius: 4px;
-  margin-right: 1rem;
 `;
 
 const DetailsContainer = styled.div`
   display: flex;
   gap: 1rem;
   margin-bottom: 1rem;
+  color: #fff;
+  flex-wrap:wrap;
 `;
 
 const Title = styled.h2`
   margin: 0 0 0.5rem;
 `;
 
-const Subtitle = styled.h3`
+const Tagline = styled.p`
   font-size: 1rem;
-  color: #ccc;
-  margin: 0.5rem 0;
+  line-height: 1.4;
+  font-style: italic;
 `;
 
 const Text = styled.p`
-  font-size: 0.9rem;
+  font-size: 1rem;
   line-height: 1.4;
-  color: #ddd;
 `;
 
-const MovieModal: React.FC<MovieModalProps> = ({ movieId, onClose }) => {
+const MovieDescription = styled.div`
+    flex: 1 1 250px;
+`
+
+function MovieModal({ movieId, onClose }: MovieModalProps) {
     const { movie, cast, trailer, loading, error } = useMovieDetails(movieId);
 
     if (!movieId) return null;
@@ -105,19 +111,16 @@ const MovieModal: React.FC<MovieModalProps> = ({ movieId, onClose }) => {
                                 round={false}
                                 fallbackText="Movie Poster Not Available"
                             />
-                            <div>
+                            <MovieDescription>
                                 <Title>{movie.title}</Title>
                                 {movie.tagline && (
-                                    <Text>{movie.tagline}</Text>
+                                    <Tagline>{movie.tagline}</Tagline>
                                 )}
-                                <Text>Release Date: {movie.release_date}</Text>
-                                <Text>Runtime: {movie.runtime} mins</Text>
-                                <Text>Genres: {movie.genres.map((genre) => genre.name).join(', ')}</Text>
-                            </div>
+                                <Text>{movie.overview}</Text>
+                                {(movie.popularity !== null || movie.vote_average !== null) && <MovieRatings popularity={movie.popularity} rating={movie.vote_average} />}
 
+                            </MovieDescription>
                         </DetailsContainer>
-                        {(movie.popularity !== null || movie.vote_average !== null) && <MovieRatings popularity={movie.popularity} rating={movie.vote_average} />}
-
                         {trailer && (
                             <TrailerEmbed
                                 src={`https://www.youtube.com/embed/${trailer.key}`}
@@ -126,13 +129,10 @@ const MovieModal: React.FC<MovieModalProps> = ({ movieId, onClose }) => {
                                 allowFullScreen
                             />
                         )}
-                        <Subtitle>Overview</Subtitle>
-                        <Text>{movie.overview}</Text>
-                        <Subtitle>Budget</Subtitle>
-                        <Text>{formatCurrency(movie.budget)}</Text>
-                        <Subtitle>Revenue</Subtitle>
-                        <Text>{formatCurrency(movie.revenue)}</Text>
-                        {cast && <><Subtitle>Top Cast</Subtitle><CastList cast={cast} /></>}
+                        <DetailsContainer>
+                            <MovieDetailsTable releaseDate={movie.release_date} runtime={movie.runtime} genres={movie.genres} revenue={movie.revenue} budget={movie.budget} />
+                            {cast && <CastList cast={cast} />}
+                        </DetailsContainer>
 
                     </>
                 )}

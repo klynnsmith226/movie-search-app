@@ -14,9 +14,11 @@ interface CastListProps {
 }
 
 const Text = styled.p`
-  font-size: 0.9rem;
-  line-height: 1.4;
-  color: #ddd;
+    font-size: 0.9rem;
+    line-height: 1;
+    color: #ddd;
+    margin-top:0.5rem;
+    margin-bottom:0.5rem;
 `;
 
 const CastContainer = styled.div`
@@ -31,8 +33,20 @@ const CastMember = styled.div`
   width: 100px;
 `;
 
+const Container = styled.div`
+    flex-direction: column;
+    padding: 2vh 2vw;
+    flex: 1 1 250px;
+`
+
+const Title = styled.h2`
+  margin: 0 0 0.5rem;
+`;
+
 function CastList({ cast }: CastListProps) {
     return (
+        <Container>
+        <Title>Top Cast</Title>
         <CastContainer>
             {cast.map((member) => (
                 <CastMember key={member.id}>
@@ -44,10 +58,11 @@ function CastList({ cast }: CastListProps) {
                         round={true}
                         fallbackText="Movie Poster Not Available"
                     />
-                    <Text>{member.name} as {member.character}</Text>
+                    <Text><b>{member.name}</b></Text><Text> as {member.character}</Text>
                 </CastMember>
             ))}
         </CastContainer>
+        </Container>
     );
 };
 
