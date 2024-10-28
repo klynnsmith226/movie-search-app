@@ -33,12 +33,12 @@ function MovieRatings({ popularity, rating }: MovieRatingsProps) {
     return (
 
         <RatingsContainer>
-            {popularity && <PopularityBadge isHigh={popularity >= 50}>
+            {popularity !== null && (<PopularityBadge isHigh={popularity >= 50}>
                 Popularity Score: {Math.round(popularity)}
-            </PopularityBadge>}
-            {rating && <VoteAverageBadge isHigh={rating >= 5}>
+            </PopularityBadge>)}
+            {rating !== null && (<VoteAverageBadge isHigh={rating >= 5}>
                 Rating: {Math.round(rating * 10)}%
-            </VoteAverageBadge>}
+            </VoteAverageBadge>)}
         </RatingsContainer>
 
     );

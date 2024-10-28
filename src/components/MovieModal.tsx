@@ -4,6 +4,8 @@ import useMovieDetails from '../hooks/useMovieDetails';
 import { formatCurrency } from '../utils/formatCurrency';
 import CastList from './CastList'
 import MovieRatings from './MovieRatings'
+import LoadingIndicator from './LoadingIndicator';
+import ImageWithEmptyPlaceholder from './ImageWithEmptyPlaceholder'
 
 interface MovieModalProps {
     movieId: number | null;
@@ -90,12 +92,19 @@ const MovieModal: React.FC<MovieModalProps> = ({ movieId, onClose }) => {
         <ModalBackground onClick={onClose}>
             <ModalContainer onClick={(e) => e.stopPropagation()}>
                 <CloseButton onClick={onClose}>&times;</CloseButton>
-                {loading && <p>Loading...</p>}
+                {loading && <LoadingIndicator color="#6bbda2" size={40} />}
                 {error && <p>{error}</p>}
                 {movie && (
                     <>
                         <DetailsContainer>
-                            <Poster src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} alt={`${movie.title} poster`} />
+                            <ImageWithEmptyPlaceholder
+                                src={movie.poster_path && `https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                                alt={`${movie.title} poster`}
+                                width={200}
+                                height={300}
+                                round={false}
+                                fallbackText="Movie Poster Not Available"
+                            />
                             <div>
                                 <Title>{movie.title}</Title>
                                 {movie.tagline && (
@@ -107,7 +116,7 @@ const MovieModal: React.FC<MovieModalProps> = ({ movieId, onClose }) => {
                             </div>
 
                         </DetailsContainer>
-                        {(movie.popularity | movie.vote_average) && <MovieRatings popularity={movie.popularity} rating={movie.vote_average}/>}
+                        {(movie.popularity !== null || movie.vote_average !== null) && <MovieRatings popularity={movie.popularity} rating={movie.vote_average} />}
 
                         {trailer && (
                             <TrailerEmbed
@@ -117,15 +126,13 @@ const MovieModal: React.FC<MovieModalProps> = ({ movieId, onClose }) => {
                                 allowFullScreen
                             />
                         )}
-
                         <Subtitle>Overview</Subtitle>
                         <Text>{movie.overview}</Text>
                         <Subtitle>Budget</Subtitle>
                         <Text>{formatCurrency(movie.budget)}</Text>
                         <Subtitle>Revenue</Subtitle>
                         <Text>{formatCurrency(movie.revenue)}</Text>
-                        
-                        {cast && <><Subtitle>Top Cast</Subtitle><CastList cast={cast}/></>}
+                        {cast && <><Subtitle>Top Cast</Subtitle><CastList cast={cast} /></>}
 
                     </>
                 )}
