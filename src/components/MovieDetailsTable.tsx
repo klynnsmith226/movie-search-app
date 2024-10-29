@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { formatCurrency } from '../utils/formatCurrency';
+import TableRow from './TableRow';
 
 interface Genre {
   id: number;
@@ -14,17 +15,6 @@ interface MovieDetailsTableProps {
   budget: number;
   revenue: number;
 }
-
-const Subtitle = styled.h3`
-  font-size: 1rem;
-  color: #ccc;
-  margin: 0.5rem 0;
-`;
-
-const Text = styled.p`
-  font-size: 1rem;
-  line-height: 1.4;
-`;
 
 const InfoTable = styled.div`
   padding-left:2vw;
@@ -44,16 +34,11 @@ const InfoTable = styled.div`
 function MovieDetailsTable({ releaseDate, genres, runtime, budget, revenue }: MovieDetailsTableProps) {
   return (
     <InfoTable>
-      <Subtitle>Release Date:</Subtitle>
-      <Text>{releaseDate ? releaseDate : "-"}</Text>
-      <Subtitle>Genres:</Subtitle>
-      <Text>{genres ? genres.map((genre) => genre.name).join(', ') : "-"}</Text>
-      <Subtitle>Runtime:</Subtitle>
-      <Text>{runtime ? runtime : "-"} mins</Text>
-      <Subtitle>Budget:</Subtitle>
-      <Text>{budget ? formatCurrency(budget) : "-"}</Text>
-      <Subtitle>Revenue:</Subtitle>
-      <Text>{revenue ? formatCurrency(revenue) : "-"}</Text>
+      <TableRow title="Release Date" value={releaseDate}/>
+      <TableRow title="Genres" value={genres.map((genre) => genre.name).join(', ')}/>
+      <TableRow title="Runtime" value={`${runtime} min`}/>
+      <TableRow title="Budget" value={formatCurrency(budget)}/>
+      <TableRow title="Revenue" value={formatCurrency(revenue)}/>
     </InfoTable>
 
   );

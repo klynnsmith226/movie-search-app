@@ -12,7 +12,6 @@ import ErrorMessage from './components/ErrorMessage';
 
 const AppContainer = styled.div`
   flex: 1;
-  min-height: 100vw;
   background-color:#000000;
   padding: 1vh 2vw;
 `;
@@ -21,7 +20,6 @@ const Body = styled.div`
   display:flex;
   flex-direction: column;
   justify-content:flex-start;
-  min-height: 100vh;
 `
 
 const HeaderText = styled.p`

@@ -25,13 +25,6 @@ const CardContainer = styled.div`
   flex-wrap: wrap;
 `;
 
-const Poster = styled.img`
-  flex:1
-  border-radius: 4px;
-  object-fit: cover;
-  margin-right: 1rem;
-`;
-
 const MovieInfo = styled.div`
   padding: 2vh 2vw;
   flex: 1 1 250px;

@@ -52,7 +52,7 @@ function MovieList({ movies, loadMoreMovies, hasMoreMovies, isFetchingMore, onMo
             <LoadMoreContainer>
             {isFetchingMore ? <LoadingIndicator color="#6bbda2" size={20}/> :
                 hasMoreMovies && (
-                    <SquareButton onClick={loadMoreMovies} disabled={isFetchingMore}> Load More </SquareButton>
+                    <SquareButton onClick={loadMoreMovies}> Load More </SquareButton>
                    
                 )}
                 </LoadMoreContainer>

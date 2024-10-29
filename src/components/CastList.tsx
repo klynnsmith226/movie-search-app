@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ImageWithEmptyPlaceholder from './ImageWithEmptyPlaceholder';
 
-interface CastMember {
+interface ICastMember {
     id: number;
     name: string;
     character: string;
@@ -10,7 +10,7 @@ interface CastMember {
 }
 
 interface CastListProps {
-    cast: CastMember[];
+    cast: ICastMember[];
 }
 
 const Text = styled.p`
@@ -56,7 +56,7 @@ function CastList({ cast }: CastListProps) {
                         width={100}
                         height={100}
                         round={true}
-                        fallbackText="Movie Poster Not Available"
+                        fallbackText="Cast Image Not Available"
                     />
                     <Text><b>{member.name}</b></Text><Text> as {member.character}</Text>
                 </CastMember>

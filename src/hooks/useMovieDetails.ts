@@ -80,7 +80,7 @@ const useMovieDetails = (movieId: number | null) => {
     };
 
     fetchMovieDetails();
-  }, [movieId]);
+  }, [movieId, API_KEY]);
 
   return { movie, cast, trailer, loading, error };
 };

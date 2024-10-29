@@ -35,6 +35,7 @@ const clearMovies = () => {
     setQuery('');
     setTotalPages(0);
     setPage(1);
+    setError(null);
   };
 
   const searchMovies = async (newQuery: string) => {
