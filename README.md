@@ -1,46 +1,73 @@
-# Getting Started with Create React App
+# Movie Search App
+This is a React application that uses The Movie Database (TMDB) API to fetch and display movie data.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## View on Netlify
+The app can be viewed at: https://kimberlysfilmsearch.netlify.app/
 
-## Available Scripts
+## Running the App Locally
+Follow these steps to set up and run the application locally.
 
-In the project directory, you can run:
+### Prerequisites
+Node.js and npm need to be installed on your machine.
 
-### `npm start`
+### 1. Clone the Repository
+Clone this repository to your local machine:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```bash
+git clone https://github.com/klynnsmith226/movie-search-app.git
+cd movie-search-app
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### 2. Install Dependencies
+Install the necessary npm packages by running:
 
-### `npm test`
+```bash
+npm install
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 3. Get the API Key
+This app requires an API key from The Movie Database (TMDB) to fetch movie data.
 
-### `npm run build`
+Go to the TMDB API page and sign up for a free account if you don’t have one.
+Once logged in, navigate to Settings > API and request an API key.
+Copy the API key provided by TMDB.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 4. Set Up Environment Variables
+To keep your API key secure, the application uses environment variables stored in a .env file.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+In the root of your project directory, create a .env file:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+touch .env
+```
+Open the .env file and add the following line, replacing your_api_key_here with your actual TMDB API key:
 
-### `npm run eject`
+```bash
+REACT_APP_API_KEY=your_api_key_here
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Save and close the .env file.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```bash
+.env
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### 5. Start the Development Server
+With the environment variable configured, you can start the app by running:
 
-## Learn More
+```bash
+npm start
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+This command will start the development server, and you can view the app in your browser at http://localhost:3000.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Build for Production
+To build the app for production, run:
+
+```bash
+npm run build
+```
+
+This will create an optimized build of the app in the build directory.
+
